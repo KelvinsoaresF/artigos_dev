@@ -34,6 +34,10 @@ Route::middleware(['auth'])->group(function() {
     Route::get('/profile/edit', [ProfileController::class, 'EditShow'])->name('profile.edit.view');
     Route::put('/profile/edit', [ProfileController::class, 'Edit'])->name('profile.update');
 
+    Route::get('/profile/{id}', [ProfileController::class, 'ShowPublic'])->name('profile.public.show');
+
+    Route::delete('/profile/delete', [ProfileController::class, 'Delete'])->name('profile.delete');
+
     Route::get('/search', [MainController::class, 'Search'])->name('search.users');
 });
 

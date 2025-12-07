@@ -37,17 +37,9 @@ class MainController extends Controller
         $user = Auth::user();
         $query = User::query();
 
-        // if ($user === null) {
-        //     return view('home', [
-        //         'myArticles' => collect(), // lista vazia
-        //         'allArticles' => Article::all(),
-        //     ]);
-        // }
-
         if ($user === null) {
             return view('auth.login');
         }
-
 
         //usando filled para verificar se o campo foi preenchido ou não, caso tenha sido preenchido, adiciona a condição na query,caso contrario ignora
         if ($request->filled('name')) {
@@ -73,8 +65,6 @@ class MainController extends Controller
             ->get();
 
         $allArticles = Article::all();
-
-        // $skills = User::pluck('skills')->flatten()->unique()->values()->toArray();
 
         return view('home', compact('searchResult', 'myArticles', 'allArticles'));
     }

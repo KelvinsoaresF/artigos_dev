@@ -6,6 +6,7 @@ use App\Models\Article;
 use App\Models\Developer;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Str;
@@ -22,6 +23,7 @@ class ArticleController extends Controller
     {
         $user = Auth::user();
 
+        // mostra somentes os desenvolvedores que não sejam o próprio usuário logado
         $developers = User::where('id', '!=', $user->id)->get();
 
         return view('articles.create', compact('developers'));
@@ -54,7 +56,6 @@ class ArticleController extends Controller
             ]
         );
         try {
-            # code...
 
             $imagePath = null;
             if ($request->hasFile('cover_image')) {
@@ -73,11 +74,10 @@ class ArticleController extends Controller
                 'title' => $request->input('title'),
                 'slug'  => Str::slug($request->input('title')),
                 'content' => $request->input('content'),
-                'published_at' => Date::now(),
+                'published_at' => Carbon::now(),
                 'cover_image' => $imagePath,
                 'owner_id' => $user->id,
             ]);
-
 
             //Associa os desenvolvedores ao artigo (developers vem atraves da relação many to many feita pelo model Article)
             $article->developers()->sync($request->developers);
@@ -91,9 +91,14 @@ class ArticleController extends Controller
 
     public function EditShow(Article $article)
     {
+        $user = Auth::user();
+
+        // mostra somentes os desenvolvedores que não sejam o próprio usuário logado
+        $developers = User::where('id', '!=', $user->id)->get();
+
         return view('articles.edit', [
             'article' => $article,
-            'developers' => User::all()
+            'developers' => $developers
         ]);
     }
 
@@ -149,7 +154,7 @@ class ArticleController extends Controller
             return redirect('/')->with('success', 'Artigo deletado com sucesso!');
 
         } catch (\Exception $e) {
-            return back()->with('error', 'Erro ao deletar artigo: ' . $e->getMessage())
+            return back()->with('error', 'Erro ao deletar artigo')
                 ->withInput();
         }
     }

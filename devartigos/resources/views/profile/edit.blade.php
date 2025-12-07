@@ -7,7 +7,6 @@
 
             <h1 class="text-3xl font-bold mb-6">Editar Perfil</h1>
 
-            {{-- MENSAGENS --}}
             @if (session('success'))
                 <div class="bg-green-200 text-green-800 p-3 rounded mb-4">
                     {{ session('success') }}
@@ -18,7 +17,6 @@
                 @csrf
                 @method('PUT')
 
-                {{-- Informações Pessoais --}}
                 <div>
                     <h2 class="text-xl font-semibold mb-2">Informações Pessoais</h2>
 
@@ -38,7 +36,6 @@
                     </select>
                 </div>
 
-                {{-- Skills --}}
                 <div>
                     <h2 class="text-xl font-semibold mb-2">Skills</h2>
 
@@ -48,8 +45,6 @@
                         placeholder="Ex: PHP, Laravel, MySQL, JavaScript">
                 </div>
 
-
-                {{-- Endereço --}}
                 <div>
                     <h2 class="text-xl font-semibold mb-2">Endereço</h2>
 
@@ -82,7 +77,6 @@
                         class="w-full p-2 border rounded focus:ring focus:ring-indigo-200">
                 </div>
 
-                {{-- Botões --}}
                 <div class="flex justify-between mt-6">
                     <a href="{{ route('profile.show') }}"
                         class="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600 transition">
@@ -94,9 +88,7 @@
                         Salvar Alterações
                     </button>
                 </div>
-
             </form>
-
         </div>
 
     </body>

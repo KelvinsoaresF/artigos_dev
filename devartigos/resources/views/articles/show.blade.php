@@ -23,19 +23,28 @@
             <div class="bg-gray-100 p-4 rounded-xl mb-6">
                 <p>
                     <span class="font-semibold text-indigo-600">Autor:</span>
-                    {{ $article->owner->name }}
+                    <a href="{{ route('profile.public.show', $article->owner->id) }}" class="hover:underline">
+                        {{ $article->owner->name }}
+                    </a>
                 </p>
 
                 @if ($article->developers->count() > 0)
                     <p class="mt-1">
                         <span class="font-semibold text-indigo-600">Desenvolvedores:</span>
-                        {{ $article->developers->pluck('name')->join(', ') }}
+                        @foreach ($article->developers as $dev)
+                            <a href="{{ route('profile.public.show', $dev->id) }}" class="hover:underline text-indigo-600">
+                                {{ $dev->name }}
+                            </a>
+                            @if (!$loop->last)
+                                ,
+                            @endif
+                        @endforeach
                     </p>
                 @endif
 
                 <p class="mt-1 text-sm text-gray-600">
                     Publicado em:
-                    {{ $article->published_at ? $article->published_at->format('d/m/Y H:i') : '—' }}
+                    {{ $article->created_at ? $article->created_at->format('d/m/Y H:i') : '—' }}
                 </p>
             </div>
 

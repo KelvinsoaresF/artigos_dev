@@ -28,7 +28,7 @@
 
             {{-- Se o usuário NÃO estiver logado --}}
             @guest
-                <a href="{{ route('login.view') }}" class="text-gray-700 hover:text-indigo-600">Login</a>
+                <a href="{{ route('login.view') }}" class="px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700">Login</a>
                 <a href="{{ route('register.view') }}"
                     class="px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700">Registrar</a>
             @endguest

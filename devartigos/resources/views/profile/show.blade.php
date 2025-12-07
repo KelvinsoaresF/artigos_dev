@@ -5,13 +5,6 @@
 
         <div class="max-w-3xl mx-auto mt-10 bg-white p-8 rounded shadow">
 
-            <div class="flex justify-end">
-                <a href="{{ route('profile.edit.view', $user->id) }}"
-                    class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 flex justify-end">
-                    Editar Perfil
-                </a>
-            </div>
-
             <h1 class="text-3xl font-bold mb-6">Meu Perfil</h1>
 
             @if (session('success'))
@@ -35,7 +28,6 @@
                 </ul>
             </div>
 
-            {{-- ENDEREÇO --}}
             <div class="mb-6">
                 <h2 class="text-xl font-semibold mb-2">Endereço</h2>
 
@@ -77,7 +69,6 @@
                 @endif
             </div>
 
-
             <div class="mb-10">
                 <h2 class="text-2xl font-bold mb-4 text-gray-800">Meus Artigos Criados</h2>
 
@@ -96,24 +87,23 @@
                                 </div>
 
                                 <div class="mt-4 flex gap-3">
-                                    {{-- Botão de Editar --}}
+
                                     @can('update', $article)
-                                    <a href="{{ route('articles.edit.view', $article->id) }}"
-                                        class="px-4 py-2 text-sm bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
-                                        Editar
-                                    </a>
+                                        <a href="{{ route('articles.edit.view', $article->id) }}"
+                                            class="px-4 py-2 text-sm bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
+                                            Editar
+                                        </a>
                                     @endcan
 
-                                    {{-- Botão de Excluir --}}
                                     <form action="{{ route('articles.delete', $article->id) }}" method="POST"
                                         onsubmit="return confirm('Tem certeza que deseja excluir este artigo?');">
                                         @csrf
                                         @method('DELETE')
                                         @can('delete', $article)
-                                        <button type="submit"
-                                            class="px-4 py-2 text-sm bg-red-600 text-white rounded-lg hover:bg-red-700 transition">
-                                            Excluir
-                                        </button>
+                                            <button type="submit"
+                                                class="px-4 py-2 text-sm bg-red-600 text-white rounded-lg hover:bg-red-700 transition">
+                                                Excluir
+                                            </button>
                                         @endcan
                                     </form>
                                 </div>
@@ -128,26 +118,29 @@
 
             {{-- BOTÕES DE AÇÃO --}}
             <div class="flex gap-3 mt-6">
-                <a href="{{ route('profile.edit.view', $user->id) }}"
-                    class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
-                    Editar Perfil
-                </a>
+                @can('update', $user)
+                    <a href="{{ route('profile.edit.view', $user->id) }}"
+                        class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+                        Editar Perfil
+                    </a>
+                @endcan
 
                 {{-- <a href="{{ route('users.password.edit', $user->id) }}"
                 class="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600">
                 Mudar Senha
             </a> --}}
 
-                {{-- <form action="{{ route('users.destroy', $user->id) }}" method="POST"
-                onsubmit="return confirm('Tem certeza que deseja excluir sua conta?');">
-                @csrf
-                @method('DELETE')
-                <button class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700">
-                    Excluir Conta
-                </button>
-            </form> --}}
+                @can('delete', $user)
+                    <form action="{{ route('profile.delete') }}" method="POST"
+                        onsubmit="return confirm('Tem certeza que deseja excluir sua conta?');">
+                        @csrf
+                        @method('DELETE')
+                        <button class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700">
+                            Excluir Conta
+                        </button>
+                    </form>
+                @endcan
             </div>
-
         </div>
 
     </body>

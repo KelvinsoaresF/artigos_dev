@@ -1,31 +1,31 @@
 @extends('layouts.main_layout')
 @section('content')
-
     <div class="w-full flex justify-center items-center">
-        @if (session('error'))
-            <div class="bg-red-200 text-red-800 p-3 rounded mb-4">
-                {{ session('error') }}
-            </div>
-        @endif
+
         <form method="POST" action="{{ route('register') }}" class="bg-white p-10 rounded shadow max-w-xl w-full">
+            @if (session('error'))
+                <div class="bg-red-200 text-red-800 p-3 rounded mb-4">
+                    {{ session('error') }}
+                </div>
+            @endif
             @csrf
 
             <h2 class="text-3xl font-bold mb-6 text-center">Criar Conta</h2>
 
             <label>Nome</label>
-            <input type="text" name="name" class="w-full mb-4 px-3 py-2 border rounded" >
+            <input type="text" name="name" class="w-full mb-4 px-3 py-2 border rounded">
             @error('name')
                 <p class="text-red-500 text-sm mb-3">{{ $message }}</p>
             @enderror
 
             <label>Email</label>
-            <input type="email" name="email" class="w-full mb-4 px-3 py-2 border rounded" >
+            <input type="email" name="email" class="w-full mb-4 px-3 py-2 border rounded">
             @error('email')
                 <p class="text-red-500 text-sm mb-3">{{ $message }}</p>
             @enderror
 
             <label>Senha</label>
-            <input type="password" name="password" class="w-full mb-6 px-3 py-2 border rounded" >
+            <input type="password" name="password" class="w-full mb-6 px-3 py-2 border rounded">
             @error('password')
                 <p class="text-red-500 text-sm mb-3">{{ $message }}</p>
             @enderror
@@ -34,9 +34,9 @@
 
             <label>Senioridade</label>
             <select name="seniority" class="w-full mb-4 px-3 py-2 border rounded">
-                <option>Junior</option>
-                <option>Pleno</option>
-                <option>Senior</option>
+                <option>Jr</option>
+                <option>Pl</option>
+                <option>Sr</option>
             </select>
             @error('seniority')
                 <p class="text-red-500 text-sm mb-3">{{ $message }}</p>
@@ -122,5 +122,4 @@
             document.getElementById('state').value = data.uf;
         }
     </script>
-
 @endsection

@@ -125,6 +125,8 @@ class AuthController extends Controller
                 'password'     => bcrypt($validateData['password']),
 
                 'seniority'    => $validateData['seniority'],
+
+                // separa a string em partes usando a vírgula como delimitador
                 'skills'       => explode(',', $validateData['skills']),
 
                 'cep'          => $validateData['cep'],
@@ -140,7 +142,7 @@ class AuthController extends Controller
 
             return redirect('/')->with('success', 'Conta criada com sucesso');
         } catch (\Exception $e) {
-            return back()->with('error', 'Erro ao criar conta')
+            return back()->with('error', 'Erro ao criar conta' . $e->getMessage())
                 ->withInput();
         }
     }

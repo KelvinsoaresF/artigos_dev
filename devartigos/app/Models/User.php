@@ -60,8 +60,22 @@ class User extends Authenticatable
         ];
     }
 
+
     public function articles()
     {
         return $this->belongsToMany(Article::class, 'article_user', 'user_id', 'article_id');
+    }
+
+    // garante que todos os artigos criados pelo usuário sejam deletados ao deletar o usuário, evitando dados "orfãos"
+    // juntamente limpando a imagem de capa associada a cada artigo no storage
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function ($user) {
+            foreach ($user->articles as $article) {
+                $article->delete();
+            }
+        });
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Article;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -19,6 +20,19 @@ class ProfileController extends Controller
             ->get();
 
         return view('profile.show', compact('user', 'myArticles', 'associatedArticles'));
+    }
+
+    public function ShowPublic($id)
+    {
+        $user = User::findOrFail($id);
+
+        $myArticles = Article::where('owner_id', $user->id)->get();
+
+        $associatedArticles = $user->articles()
+            ->where('owner_id', '!=', $user->id)
+            ->get();
+
+        return view('profile.public', compact('user', 'myArticles', 'associatedArticles'));
     }
 
     public function EditShow()
@@ -74,6 +88,21 @@ class ProfileController extends Controller
                 ->with('success', 'Perfil atualizado com sucesso.');
         } catch (\Exception $e) {
             return back()->with('error', 'Erro ao editar perfil')
+                ->withInput();
+        }
+    }
+
+    public function Delete()
+    {
+        $user = Auth::user();
+
+        try {
+            
+            $user->delete();
+
+            return redirect('/')->with('success', 'Conta deletada com sucesso.');
+        } catch (\Exception $e) {
+            return back()->with('error', 'Erro ao deletar conta.')
                 ->withInput();
         }
     }
