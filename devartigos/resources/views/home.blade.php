@@ -12,34 +12,53 @@
         </div>
     @endif
 
-
     <main class="max-w-6xl mx-auto px-4 mt-10">
+
+        <x-search-user />
+
+        @isset($searchResult)
+            <h2 class="text-3xl font-semibold mb-6">
+                Resultados da pesquisa
+            </h2>
+
+            @if ($searchResult->count() === 0)
+                <p class="text-gray-600">Nenhum usuario encontrado</p>
+            @else
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mb-10">
+                    @foreach ($searchResult as $user)
+                        <x-user-card :user="$user" />
+                    @endforeach
+                </div>
+            @endif
+        @endisset
 
         <h2 class="text-3xl font-semibold mb-6">Meus Artigos</h2>
 
-        @auth
-
-            @foreach ($myArticles as $article)
-                <x-article-card :title="$article->title" :content="Str::limit($article->content, 120)" :author="$article->owner->name" :developers="$article->developers->pluck('name')->toArray()">
-                    <x-slot:actions>
-                        @can('update', $article)
-                            <a href="{{ route('articles.edit.view', $article) }}" class="text-green-600">
-                                Editar
-                            </a>
-                        @endcan
-
-                        @can('delete', $article)
-                            <form action="{{ route('articles.delete', $article->id) }}" method="POST">
-                                @csrf
-                                @method('DELETE')
-                                <button class="text-red-600">Excluir</button>
-                            </form>
-                        @endcan
-                    </x-slot:actions>
-                </x-article-card>
-            @endforeach
-
-        @endauth
+        @if ($myArticles->count() == 0)
+            <p class="text-gray-600 mb-6">Você ainda não publicou nenhum artigo. <a href="{{ route('articles.create.view') }}"
+                    class="text-blue-600 underline">Clique aqui</a> para criar seu primeiro artigo.</p>
+        @else
+            @auth
+                @foreach ($myArticles as $article)
+                    <x-article-card :title="$article->title" :content="Str::limit($article->content, 120)" :author="$article->owner->name" :developers="$article->developers->pluck('name')->toArray()">
+                        <x-slot:actions>
+                            @can('update', $article)
+                                <a href="{{ route('articles.edit.view', $article) }}" class="text-green-600">
+                                    Editar
+                                </a>
+                            @endcan
+                            @can('delete', $article)
+                                <form action="{{ route('articles.delete', $article->id) }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button class="text-red-600">Excluir</button>
+                                </form>
+                            @endcan
+                        </x-slot:actions>
+                    </x-article-card>
+                @endforeach
+            @endauth
+        @endif
 
 
         <h2 class="text-3xl font-semibold mb-6">Artigos Recentes</h2>

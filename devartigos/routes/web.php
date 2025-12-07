@@ -5,9 +5,10 @@ use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\MainController;
+use App\Http\Controllers\ProfileController;
+
 
 Route::get('/', [MainController::class, 'Index'])->name('home');
-
 
 Route::get("/login", [AuthController::class, 'LoginShow'])->name('login.view');
 Route::post("/login", [AuthController::class, 'Login'])->name('login');
@@ -16,15 +17,23 @@ Route::get("/register", [AuthController::class, 'RegisterShow'])->name('register
 Route::post("/register", [AuthController::class, 'Register'])->name('register');
 
 
-Route::post("/logout", [AuthController::class, 'Logout'])->name('logout');
+Route::middleware(['auth'])->group(function() {
+    Route::post("/logout", [AuthController::class, 'Logout'])->name('logout');
 
+    Route::get('/articles/create', [ArticleController::class, 'CreateShow'])->name('articles.create.view');
+    Route::post('/articles/store', [ArticleController::class, 'Create'])->name('articles.create');
 
+    Route::get('/articles/{article}', [ArticleController::class, 'Show'])->name('articles.show');
 
-Route::get('/articles/create', [ArticleController::class, 'CreateShow'])->name('articles.create.view');
-Route::post('/articles/store', [ArticleController::class, 'Create'])->name('articles.create');
+    Route::get('/articles/{article}/edit', [ArticleController::class, 'EditShow'])->name('articles.edit.view');
+    Route::put('/articles/{article}/edit', [ArticleController::class, 'Edit'])->name('articles.update');
 
-Route::get('/articles/{article}', [ArticleController::class, 'Show'])->name('articles.show');
+    Route::delete('/articles/{article}/delete', [ArticleController::class, 'Delete'])->name('articles.delete');
 
-Route::get('/articles/{article}/edit', [ArticleController::class, 'EditShow'])->name('articles.edit.view');
+    Route::get('/profile', [ProfileController::class, 'Show'])->name('profile.show');
+    Route::get('/profile/edit', [ProfileController::class, 'EditShow'])->name('profile.edit.view');
+    Route::put('/profile/edit', [ProfileController::class, 'Edit'])->name('profile.update');
 
-Route::delete('/articles/{article}/delete', [ArticleController::class, 'Delete'])->name('articles.delete');
+    Route::get('/search', [MainController::class, 'Search'])->name('search.users');
+});
+

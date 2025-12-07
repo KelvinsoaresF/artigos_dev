@@ -5,13 +5,9 @@
 
         <div class="max-w-3xl mx-auto mt-10 bg-white p-8 rounded shadow">
 
-            @if ($errors->any())
+            @if (session('error'))
                 <div class="bg-red-200 text-red-800 p-3 rounded mb-4">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
+                    {{ session('error') }}
                 </div>
             @endif
 
@@ -22,14 +18,14 @@
 
                 {{-- Título --}}
                 <label class="font-semibold">Título</label>
-                <input type="text" name="title" class="w-full border px-3 py-2 rounded mt-1 mb-4" required>
+                <input type="text" name="title" class="w-full border px-3 py-2 rounded mt-1 mb-4" >
                 @error('title')
                     <p class="text-red-600 text-sm mb-3">{{ $message }}</p>
                 @enderror
 
                 {{-- Conteúdo --}}
                 <label class="font-semibold">Conteúdo</label>
-                <textarea name="content" rows="6" class="w-full border px-3 py-2 rounded mt-1 mb-4" required></textarea>
+                <textarea name="content" rows="6" class="w-full border px-3 py-2 rounded mt-1 mb-4" ></textarea>
                 @error('content')
                     <p class="text-red-600 text-sm mb-3">{{ $message }}</p>
                 @enderror
@@ -47,11 +43,6 @@
 
                 {{-- Desenvolvedores --}}
                 <label class="font-semibold">Desenvolvedores</label>
-                {{-- <select name="developers[]" multiple class="w-full border px-3 py-2 rounded mt-1 mb-4 h-40" required>
-                    @foreach ($developers as $dev)
-                        <option value="{{ $dev->id }}">{{ $dev->name }} — {{ $dev->seniority }}</option>
-                    @endforeach
-                </select> --}}
                 @foreach ($developers as $dev)
                     <label class="flex items-center gap-2">
                         <input type="checkbox" name="developers[]" value="{{ $dev->id }}">
@@ -62,7 +53,7 @@
                     <p class="text-red-600 text-sm mb-3">{{ $message }}</p>
                 @enderror
 
-                <button type="submit" class="bg-indigo-600 text-white px-6 py-3 rounded hover:bg-indigo-700">
+                <button type="submit" class="bg-indigo-600 text-white px-6 py-3 mt-4 rounded hover:bg-indigo-700">
                     Criar Artigo
                 </button>
             </form>

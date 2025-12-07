@@ -9,7 +9,9 @@
         <div class="flex space-x-4">
             {{-- Se o usuário estiver logado --}}
             @auth
-                <span class="text-gray-700">Olá, {{ auth()->user()->name }}</span>
+            <a href="{{ route('profile.show') }}" class="px-4 py-2 hover:bg-gray-300 rounded">
+                <span class="text-gray-700 ">Olá, {{ auth()->user()->name }}</span>
+            </a>
 
                 <a href="{{ route('articles.create.view') }}"
                     class="px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700">

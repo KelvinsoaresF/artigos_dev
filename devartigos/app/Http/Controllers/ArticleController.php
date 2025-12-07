@@ -53,32 +53,40 @@ class ArticleController extends Controller
                 'cover_image.image' => 'A imagem enviada não é válida.'
             ]
         );
+        try {
+            # code...
 
-        $imagePath = null;
-        if ($request->hasFile('cover_image')) {
-            $imagePath = $request->file('cover_image')->store('cover_images', 'public');
-        }
+            $imagePath = null;
+            if ($request->hasFile('cover_image')) {
+                $imagePath = $request->file('cover_image')->store('cover_images', 'public');
+            }
 
-        $user = Auth::user();
+            $user = Auth::user();
 
-        if (in_array($user->id, $request->developers)) {
-            return back()
-                ->withErrors(['developers' => 'Você não pode selecionar a si mesmo como desenvolvedor.'])
+            if (in_array($user->id, $request->developers)) {
+                return back()
+                    ->withErrors(['developers' => 'Você não pode selecionar a si mesmo como desenvolvedor.'])
+                    ->withInput();
+            }
+
+            $article = Article::create([
+                'title' => $request->input('title'),
+                'slug'  => Str::slug($request->input('title')),
+                'content' => $request->input('content'),
+                'published_at' => Date::now(),
+                'cover_image' => $imagePath,
+                'owner_id' => $user->id,
+            ]);
+
+
+            //Associa os desenvolvedores ao artigo (developers vem atraves da relação many to many feita pelo model Article)
+            $article->developers()->sync($request->developers);
+
+            return redirect('/')->with('success', 'Artigo criado com sucesso!');
+        } catch (\Exception $e) {
+            return back()->with('error', 'Erro ao criar artigo: ' . $e->getMessage())
                 ->withInput();
         }
-
-        $article = Article::create([
-            'title' => $request->input('title'),
-            'slug'  => Str::slug($request->input('title')),
-            'content' => $request->input('content'),
-            'published_at' => Date::now(),
-            'cover_image' => $imagePath,
-            'owner_id' => $user->id,
-        ]);
-
-        $article->developers()->sync($request->developers);
-
-        return redirect('/')->with('success', 'Artigo criado com sucesso!');
     }
 
     public function EditShow(Article $article)
@@ -89,11 +97,60 @@ class ArticleController extends Controller
         ]);
     }
 
+    public function Edit(Request $request, Article $article)
+    {
+        $request->validate(
+            [
+                'title' => 'required|min:3',
+                'content' => 'required|min:10',
+                'published_at' => 'nullable|date',
+                'developers' => 'array|required',
+                'developers.*' => 'exists:users,id',
+                'cover_image' => 'nullable|image'
+            ],
+            [
+                'title.required' => 'O título é obrigatório.',
+                'title.min' => 'O título deve ter pelo menos 3 caracteres.',
+
+                'content.required' => 'O conteúdo é obrigatório.',
+                'content.min' => 'O conteúdo deve ter pelo menos 10 caracteres.',
+
+                'developers.required' => 'Selecione pelo menos um desenvolvedor.',
+                'developers.array' => 'Formato inválido para os desenvolvedores.',
+                'developers.*.exists' => 'Um dos desenvolvedores selecionados não existe.',
+
+                'cover_image.image' => 'A imagem enviada não é válida.'
+            ]
+        );
+
+        try {
+
+            $article->update([
+                'title' => $request->input('title'),
+                'slug'  => Str::slug($request->input('title')),
+                'content' => $request->input('content'),
+            ]);
+
+            $article->developers()->sync($request->developers);
+
+            return redirect('/')->with('success', 'Artigo atualizado com sucesso!');
+        } catch (\Exception $e) {
+            return back()->with('error', 'Erro ao atualizar artigo: ' . $e->getMessage())
+                ->withInput();
+        }
+    }
+
     public function Delete($id)
     {
-        $article = Article::findOrFail($id);
-        $article->delete();
+        try {
+            $article = Article::findOrFail($id);
+            $article->delete();
 
-        return redirect('/')->with('success', 'Artigo deletado com sucesso!');
+            return redirect('/')->with('success', 'Artigo deletado com sucesso!');
+
+        } catch (\Exception $e) {
+            return back()->with('error', 'Erro ao deletar artigo: ' . $e->getMessage())
+                ->withInput();
+        }
     }
 }
