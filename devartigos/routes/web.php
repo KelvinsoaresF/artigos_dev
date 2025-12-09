@@ -1,12 +1,10 @@
 <?php
-
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\ProfileController;
-
 
 Route::get('/', [MainController::class, 'Index'])->name('home');
 
@@ -16,7 +14,7 @@ Route::post("/login", [AuthController::class, 'Login'])->name('login');
 Route::get("/register", [AuthController::class, 'RegisterShow'])->name('register.view');
 Route::post("/register", [AuthController::class, 'Register'])->name('register');
 
-
+// apenas usuarios logados podem acessar as rotas dentro deste grupo
 Route::middleware(['auth'])->group(function() {
     Route::post("/logout", [AuthController::class, 'Logout'])->name('logout');
 

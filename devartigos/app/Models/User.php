@@ -73,9 +73,16 @@ class User extends Authenticatable
         parent::boot();
 
         static::deleting(function ($user) {
-            foreach ($user->articles as $article) {
+            // deleta apenas artigos criados pelo proprio usuario
+            $articles = Article::where('owner_id', $user->id)->get();
+
+            // percorre e deleta cada artigo criado pelo usuário
+            foreach ($articles as $article) {
                 $article->delete();
             }
+
+            // remove as associações many to many entre o usuário e os artigos que ele está associado
+            $user->articles()->detach();
         });
     }
 }

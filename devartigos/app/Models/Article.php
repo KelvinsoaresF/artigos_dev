@@ -2,25 +2,25 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Facades\Storage;
 
 class Article extends Model
 {
+    use HasFactory;
+
     protected $fillable = [
         'title',
         'slug',
         'content',
-        'published_at',
         'cover_image',
         'owner_id',
     ];
 
     protected $casts = [
-        'published_at' => 'date',
     ];
-
 
     // relação do artigo com os desenvolvedores (usuários) associados
     public function developers(): BelongsToMany
@@ -33,7 +33,6 @@ class Article extends Model
     {
         return $this->belongsTo(User::class, 'owner_id');
     }
-
 
     //garante que sempre que um artigo seja deletado, sua imagem de capa também seja removida do armazenamento
     // evitando sobrecarga desnecessária no storage

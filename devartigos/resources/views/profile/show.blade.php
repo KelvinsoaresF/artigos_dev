@@ -114,9 +114,6 @@
                 @endif
             </div>
 
-
-
-            {{-- BOTÕES DE AÇÃO --}}
             <div class="flex gap-3 mt-6">
                 @can('update', $user)
                     <a href="{{ route('profile.edit.view', $user->id) }}"
@@ -124,11 +121,6 @@
                         Editar Perfil
                     </a>
                 @endcan
-
-                {{-- <a href="{{ route('users.password.edit', $user->id) }}"
-                class="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600">
-                Mudar Senha
-            </a> --}}
 
                 @can('delete', $user)
                     <form action="{{ route('profile.delete') }}" method="POST"

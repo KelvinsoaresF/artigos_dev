@@ -45,41 +45,42 @@ class ProfileController extends Controller
     {
         $user = Auth::user();
 
-        $validateData = $request->validate([
-            'name' => 'nullable|string|min:3',
-            'email' => 'nullable|string|email',
-            'seniority' => 'nullable|string|in:Jr,Pl,Sr',
-            'skills' => 'nullable|string',
-            'cep' => 'nullable|string',
-            'street' => 'nullable|string',
-            'number' => 'nullable|string',
-            'city' => 'nullable|string',
-            'state' => 'nullable|string',
-        ],
-        [
-            // 'name.required' => 'O campo nome é obrigatório.',
-            'name.string' => 'O campo nome deve ser uma string.',
-            'name.min' => 'O nome deve ter no mínimo 3 caracteres.',
+        $validateData = $request->validate(
+            [
+                'name' => 'nullable|string|min:3',
+                'email' => 'nullable|string|email',
+                'seniority' => 'nullable|string|in:Jr,Pl,Sr',
+                'skills' => 'nullable|string',
+                'cep' => 'nullable|string',
+                'street' => 'nullable|string',
+                'number' => 'nullable|string',
+                'city' => 'nullable|string',
+                'state' => 'nullable|string',
+            ],
+            [
+                // 'name.required' => 'O campo nome é obrigatório.',
+                'name.string' => 'O campo nome deve ser uma string.',
+                'name.min' => 'O nome deve ter no mínimo 3 caracteres.',
 
-            // 'email.required' => 'O campo email é obrigatório.',
-            'email.string' => 'O campo email deve ser uma string.',
-            'email.email' => 'O campo email deve ser um email válido.',
+                // 'email.required' => 'O campo email é obrigatório.',
+                'email.string' => 'O campo email deve ser uma string.',
+                'email.email' => 'O campo email deve ser um email válido.',
 
-            // 'seniority.required' => 'O campo senioridade é obrigatório.',
-            'seniority.string' => 'O campo senioridade deve ser uma string.',
-            'seniority.in' => 'O campo senioridade deve ser Jr, Pl ou Sr.',
+                // 'seniority.required' => 'O campo senioridade é obrigatório.',
+                'seniority.string' => 'O campo senioridade deve ser uma string.',
+                'seniority.in' => 'O campo senioridade deve ser Jr, Pl ou Sr.',
 
-            // 'skills.string' => 'O campo skills deve ser uma string.',
+                // 'skills.string' => 'O campo skills deve ser uma string.',
 
-            'cep.string' => 'O campo CEP deve ser uma string.',
-            'street.string' => 'O campo rua deve ser uma string.',
-            'number.string' => 'O campo número deve ser uma string.',
-            'city.string' => 'O campo cidade deve ser uma string.',
-            'state.string' => 'O campo estado deve ser uma string.',
-        ]);
+                'cep.string' => 'O campo CEP deve ser uma string.',
+                'street.string' => 'O campo rua deve ser uma string.',
+                'number.string' => 'O campo número deve ser uma string.',
+                'city.string' => 'O campo cidade deve ser uma string.',
+                'state.string' => 'O campo estado deve ser uma string.',
+            ]
+        );
 
         $validateData['skills'] = array_map('trim', explode(',', $request->skills));
-
 
         try {
             $user->update($validateData);
@@ -97,7 +98,8 @@ class ProfileController extends Controller
         $user = Auth::user();
 
         try {
-            
+
+            Auth::logout();
             $user->delete();
 
             return redirect('/')->with('success', 'Conta deletada com sucesso.');

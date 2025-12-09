@@ -1,5 +1,7 @@
 <div class="bg-white shadow rounded-lg p-5">
-    <h3 class="text-xl font-semibold">{{ $user->name }}</h3>
+    <a href="{{ route('profile.public.show', $user->id) }}">
+        <h3 class="text-xl font-semibold hover:text-blue-500">{{ $user->name }}</h3>
+    </a>
 
     <p class="text-gray-600">{{ $user->seniority }}</p>
 

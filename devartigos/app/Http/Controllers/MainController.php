@@ -24,8 +24,7 @@ class MainController extends Controller
         $myArticles = Article::where('owner_id', $user->id)
             ->orWhereHas('developers', function ($query) use ($user) {
                 $query->where('user_id', $user->id);
-            })
-            ->get();
+            })->get();
 
         $allArticles = Article::all();
 

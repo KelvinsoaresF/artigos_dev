@@ -13,13 +13,13 @@
             <h2 class="text-3xl font-bold mb-6 text-center">Criar Conta</h2>
 
             <label>Nome</label>
-            <input type="text" name="name" class="w-full mb-4 px-3 py-2 border rounded">
+            <input type="text" name="name" value="{{ old('name') }}" class="w-full mb-4 px-3 py-2 border rounded">
             @error('name')
                 <p class="text-red-500 text-sm mb-3">{{ $message }}</p>
             @enderror
 
             <label>Email</label>
-            <input type="email" name="email" class="w-full mb-4 px-3 py-2 border rounded">
+            <input type="email" name="email" value="{{ old('email') }}" class="w-full mb-4 px-3 py-2 border rounded">
             @error('email')
                 <p class="text-red-500 text-sm mb-3">{{ $message }}</p>
             @enderror
@@ -43,7 +43,7 @@
             @enderror
 
             <label>Skills (separadas por vírgula)</label>
-            <input type="text" name="skills" class="w-full mb-6 px-3 py-2 border rounded">
+            <input type="text" name="skills" placeholder="Ex: PHP, Laravel, MySQL, JavaScript" class="w-full mb-6 px-3 py-2 border rounded">
             @error('skills')
                 <p class="text-red-500 text-sm mb-3">{{ $message }}</p>
             @enderror

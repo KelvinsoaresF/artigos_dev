@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Article;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -20,11 +21,18 @@ class DatabaseSeeder extends Seeder
             ArticlesTableSeeder::class,
         ]);
 
-        // User::factory(10)->create();
+        $users = User::factory(10)->create();
 
-        // User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        $articles = Article::factory(20)->create();
+
+        $articles->each(function ($article) use ($users) {
+            // cada artigo terá entre 1 e 5 desenvolvedores associados
+            $devs = $users->random(rand(1, 5));
+
+            $article->developers()->attach(
+                $devs->pluck('id')->toArray()
+            );
+        });
+
     }
 }

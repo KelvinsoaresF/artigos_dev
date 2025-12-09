@@ -16,7 +16,6 @@ class ArticleCard extends Component
     public $showReadMore;
     public $readMoreUrl;
 
-
     /**
      * Create a new component instance.
      */

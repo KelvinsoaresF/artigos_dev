@@ -35,7 +35,6 @@ class AuthController extends Controller
         );
 
         try {
-            //code...
             $dev = User::where('email', $validateData['email'])->first();
             $passwordVerify = password_verify($validateData['password'], $dev->password);
 
@@ -45,8 +44,7 @@ class AuthController extends Controller
 
             Auth::login($dev);
             return redirect('/')->with('success', 'Login realizado com sucesso');
-            // } catch (ValidationException $e) {
-            //     throw $e;
+
         } catch (\Exception $e) {
             return back()->with('error', 'Erro ao entrar na conta')
                 ->withInput();
@@ -60,7 +58,6 @@ class AuthController extends Controller
 
     public function Register(Request $request)
     {
-
         $validateData = $request->validate(
             [
                 'name'         => 'required|string|max:50',

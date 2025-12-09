@@ -18,23 +18,20 @@
 
                 {{-- Título --}}
                 <label class="font-semibold">Título</label>
-                <input type="text" name="title" class="w-full border px-3 py-2 rounded mt-1 mb-4" >
+                <input type="text" name="title" value="{{ old('title') }}" class="w-full border px-3 py-2 rounded mt-1 mb-4" >
                 @error('title')
                     <p class="text-red-600 text-sm mb-3">{{ $message }}</p>
                 @enderror
 
                 {{-- Conteúdo --}}
                 <label class="font-semibold">Conteúdo</label>
-                <textarea name="content" rows="6" class="w-full border px-3 py-2 rounded mt-1 mb-4" ></textarea>
+                <textarea name="content"  rows="6" class="w-full border px-3 py-2 rounded mt-1 mb-4" >
+                    {{ old('content') }}
+                </textarea>
                 @error('content')
                     <p class="text-red-600 text-sm mb-3">{{ $message }}</p>
                 @enderror
 
-                {{-- Data --}}
-                {{-- <label class="font-semibold">Data de Publicação (opcional)</label>
-            <input type="date" name="published_at" class="w-full border px-3 py-2 rounded mt-1 mb-4"> --}}
-
-                {{-- Imagem --}}
                 <label class="font-semibold">Imagem de capa (opcional)</label>
                 <input type="file" name="cover_image" class="w-full mb-4">
                 @error('cover_image')

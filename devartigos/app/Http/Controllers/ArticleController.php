@@ -13,7 +13,6 @@ use Illuminate\Support\Str;
 
 class ArticleController extends Controller
 {
-
     public function Show(Article $article)
     {
         return view('articles.show', compact('article'));
@@ -31,12 +30,10 @@ class ArticleController extends Controller
 
     public function Create(Request $request)
     {
-
         $request->validate(
             [
                 'title' => 'required|min:3',
                 'content' => 'required|min:10',
-                'published_at' => 'nullable|date',
                 'developers' => 'array|required',
                 'developers.*' => 'exists:users,id',
                 'cover_image' => 'nullable|image'
@@ -56,7 +53,6 @@ class ArticleController extends Controller
             ]
         );
         try {
-
             $imagePath = null;
             if ($request->hasFile('cover_image')) {
                 $imagePath = $request->file('cover_image')->store('cover_images', 'public');
@@ -84,7 +80,7 @@ class ArticleController extends Controller
 
             return redirect('/')->with('success', 'Artigo criado com sucesso!');
         } catch (\Exception $e) {
-            return back()->with('error', 'Erro ao criar artigo: ' . $e->getMessage())
+            return back()->with('error', 'Erro ao criar artigo')
                 ->withInput();
         }
     }
@@ -108,7 +104,7 @@ class ArticleController extends Controller
             [
                 'title' => 'required|min:3',
                 'content' => 'required|min:10',
-                'published_at' => 'nullable|date',
+                // 'published_at' => 'nullable|date',
                 'developers' => 'array|required',
                 'developers.*' => 'exists:users,id',
                 'cover_image' => 'nullable|image'
@@ -130,10 +126,16 @@ class ArticleController extends Controller
 
         try {
 
+            $imagePath = null;
+            if ($request->hasFile('cover_image')) {
+                $imagePath = $request->file('cover_image')->store('cover_images', 'public');
+            }
+
             $article->update([
                 'title' => $request->input('title'),
                 'slug'  => Str::slug($request->input('title')),
                 'content' => $request->input('content'),
+                'cover_image' => $imagePath,
             ]);
 
             $article->developers()->sync($request->developers);
@@ -152,7 +154,6 @@ class ArticleController extends Controller
             $article->delete();
 
             return redirect('/')->with('success', 'Artigo deletado com sucesso!');
-
         } catch (\Exception $e) {
             return back()->with('error', 'Erro ao deletar artigo')
                 ->withInput();
