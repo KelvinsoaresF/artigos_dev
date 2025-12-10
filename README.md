@@ -76,7 +76,7 @@ Git Flow / Commits organizados
 📦 Instalação e Configuração
 1️⃣ Clonar o repositório
 git clone https://github.com/KelvinsoaresF/artigos_dev.git
-cd seu-repo
+cd artigos_dev
 
 2️⃣ Instalar dependências
 composer install
