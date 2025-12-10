@@ -60,7 +60,6 @@
             @endauth
         @endif
 
-
         <h2 class="text-3xl font-semibold mb-6">Artigos Recentes</h2>
 
         @if ($allArticles->count() == 0)

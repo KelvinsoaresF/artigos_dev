@@ -53,6 +53,7 @@ class ArticleController extends Controller
             ]
         );
         try {
+            // caso haja uma imagem de capa, armazena na pasta cover_images dentro do storage, caso contrario seta como null
             $imagePath = null;
             if ($request->hasFile('cover_image')) {
                 $imagePath = $request->file('cover_image')->store('cover_images', 'public');
@@ -70,7 +71,6 @@ class ArticleController extends Controller
                 'title' => $request->input('title'),
                 'slug'  => Str::slug($request->input('title')),
                 'content' => $request->input('content'),
-                'published_at' => Carbon::now(),
                 'cover_image' => $imagePath,
                 'owner_id' => $user->id,
             ]);
@@ -104,7 +104,6 @@ class ArticleController extends Controller
             [
                 'title' => 'required|min:3',
                 'content' => 'required|min:10',
-                // 'published_at' => 'nullable|date',
                 'developers' => 'array|required',
                 'developers.*' => 'exists:users,id',
                 'cover_image' => 'nullable|image'
@@ -142,7 +141,7 @@ class ArticleController extends Controller
 
             return redirect('/')->with('success', 'Artigo atualizado com sucesso!');
         } catch (\Exception $e) {
-            return back()->with('error', 'Erro ao atualizar artigo: ' . $e->getMessage())
+            return back()->with('error', 'Erro ao atualizar artigo')
                 ->withInput();
         }
     }

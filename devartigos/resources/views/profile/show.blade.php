@@ -7,6 +7,18 @@
 
             <h1 class="text-3xl font-bold mb-6">Meu Perfil</h1>
 
+            <div class="flex gap-3 mb-6">
+
+                <span class="px-3 py-1 bg-blue-100 text-blue-700 rounded text-sm">
+                    Artigos criados: {{ $user->createdArticles()->count() }}
+                </span>
+
+                <span class="px-3 py-1 bg-green-100 text-green-700 rounded text-sm">
+                    Participando: {{ $user->articles()->count() }}
+                </span>
+
+            </div>
+
             @if (session('success'))
                 <div class="bg-green-200 text-green-800 p-3 rounded mb-4">
                     {{ session('success') }}

@@ -25,6 +25,8 @@ class Article extends Model
     // relação do artigo com os desenvolvedores (usuários) associados
     public function developers(): BelongsToMany
     {
+        // article_user é a tabela pivô que conecta artigos e usuários
+        // article_id e user_id são as chaves estrangeiras na tabela pivô
         return $this->belongsToMany(User::class, 'article_user', 'article_id', 'user_id');
     }
 

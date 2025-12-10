@@ -17,7 +17,6 @@
                 @csrf
                 @method('PUT')
 
-                {{-- Título --}}
                 <label class="font-semibold">Título</label>
                 <input type="text" name="title" value="{{ old('title', $article->title) }}"
                     class="w-full border px-3 py-2 rounded mt-1 mb-4">
@@ -25,27 +24,23 @@
                     <p class="text-red-600 text-sm mb-3">{{ $message }}</p>
                 @enderror
 
-                {{-- Conteúdo --}}
                 <label class="font-semibold">Conteúdo</label>
                 <textarea name="content" rows="6" class="w-full border px-3 py-2 rounded mt-1 mb-4">{{ old('content', $article->content) }}</textarea>
                 @error('content')
                     <p class="text-red-600 text-sm mb-3">{{ $message }}</p>
                 @enderror
 
-                {{-- Imagem Atual --}}
                 @if ($article->cover_image)
                     <p class="font-semibold mb-2">Imagem atual:</p>
                     <img src="{{ asset('storage/' . $article->cover_image) }}" class="w-48 mb-4 rounded shadow">
                 @endif
 
-                {{-- Trocar Imagem --}}
                 <label class="font-semibold">Trocar imagem de capa (opcional)</label>
                 <input type="file" name="cover_image" class="w-full mb-4">
                 @error('cover_image')
                     <p class="text-red-600 text-sm mb-3">{{ $message }}</p>
                 @enderror
 
-                {{-- Desenvolvedores --}}
                 <label class="font-semibold">Desenvolvedores</label>
                 @foreach ($developers as $dev)
                     <label class="flex items-center gap-2">

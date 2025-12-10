@@ -3,11 +3,10 @@
 
         <a href="/">
             <h1 class="text-2xl font-bold text-indigo-600">DevArticles</h1>
-
         </a>
 
         <div class="flex space-x-4">
-            {{-- Se o usuário estiver logado --}}
+
             @auth
             <a href="{{ route('profile.show') }}" class="px-4 py-2 hover:bg-gray-300 rounded">
                 <span class="text-gray-700 ">Olá, {{ auth()->user()->name }}</span>
@@ -26,7 +25,6 @@
                 </form>
             @endauth
 
-            {{-- Se o usuário NÃO estiver logado --}}
             @guest
                 <a href="{{ route('login.view') }}" class="px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700">Login</a>
                 <a href="{{ route('register.view') }}"

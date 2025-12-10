@@ -18,13 +18,13 @@ return new class extends Migration
             $table->string('password');
             $table->enum('seniority', ['Jr', 'Pl', 'Sr']);
             $table->json('skills'); // armazenar como ["PHP", "Laravel", "Vue"]
-            $table->string('cep')->nullable();
-            $table->string('street')->nullable();
-            $table->string('number')->nullable();
+            $table->string('cep');
+            $table->string('street');
+            $table->string('number');
             $table->string('complement')->nullable();
-            $table->string('neighborhood')->nullable();
-            $table->string('city')->nullable();
-            $table->string('state')->nullable();
+            $table->string('neighborhood');
+            $table->string('city');
+            $table->string('state');
             $table->rememberToken();
             $table->timestamps();
         });

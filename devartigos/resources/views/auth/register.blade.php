@@ -29,8 +29,6 @@
             @error('password')
                 <p class="text-red-500 text-sm mb-3">{{ $message }}</p>
             @enderror
-            {{-- <label>Confirmação de senha</label>
-            <input type="password" name="password_confirmation"> --}}
 
             <label>Senioridade</label>
             <select name="seniority" class="w-full mb-4 px-3 py-2 border rounded">

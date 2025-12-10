@@ -5,6 +5,16 @@
 
     <p class="text-gray-600">{{ $user->seniority }}</p>
 
+        <div class="flex gap-2 mt-3">
+        <span class="px-2 py-1 bg-blue-100 text-blue-700 text-xs rounded">
+            Criados: {{ $user->createdArticles()->count() }}
+        </span>
+
+        <span class="px-2 py-1 bg-green-100 text-green-700 text-xs rounded">
+            Participando: {{ $user->articles()->count() }}
+        </span>
+    </div>
+
     <div class="mt-2">
         <p class="text-sm font-semibold text-gray-700">Skills:</p>
         <div class="flex flex-wrap gap-2 mt-1">

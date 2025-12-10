@@ -33,6 +33,5 @@ class DatabaseSeeder extends Seeder
                 $devs->pluck('id')->toArray()
             );
         });
-
     }
 }

@@ -26,7 +26,7 @@ class MainController extends Controller
                 $query->where('user_id', $user->id);
             })->get();
 
-        $allArticles = Article::all();
+        $allArticles = Article::orderBy('created_at', 'desc')->get();
 
         return view('home', compact('myArticles', 'allArticles'));
     }
@@ -63,7 +63,7 @@ class MainController extends Controller
             })
             ->get();
 
-        $allArticles = Article::all();
+        $allArticles = Article::orderBy('created_at', 'desc')->get();
 
         return view('home', compact('searchResult', 'myArticles', 'allArticles'));
     }

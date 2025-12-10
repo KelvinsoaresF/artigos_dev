@@ -61,7 +61,7 @@ class AuthController extends Controller
         $validateData = $request->validate(
             [
                 'name'         => 'required|string|max:50',
-                'email'        => 'required|string|email|max:255|unique:developers',
+                'email'        => 'required|string|email|max:255|unique:users,email',
                 'password'     => 'required|string|min:8|',
 
                 'seniority'    => 'required|string|max:50',
@@ -139,7 +139,7 @@ class AuthController extends Controller
 
             return redirect('/')->with('success', 'Conta criada com sucesso');
         } catch (\Exception $e) {
-            return back()->with('error', 'Erro ao criar conta' . $e->getMessage())
+            return back()->with('error', 'Erro ao criar conta')
                 ->withInput();
         }
     }

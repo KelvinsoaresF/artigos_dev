@@ -8,7 +8,6 @@ use Illuminate\View\Component;
 
 class ArticleCard extends Component
 {
-
     public $title;
     public $content;
     public $author;
@@ -26,7 +25,9 @@ class ArticleCard extends Component
         $developers = [],
         $showReadMore = false,
         $readMoreUrl = '#'
-    ) {
+    )
+
+    {
         $this->title = $title;
         $this->content = $content;
         $this->author = $author;

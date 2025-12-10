@@ -16,14 +16,12 @@
             <form action="{{ route('articles.create') }}" method="POST" enctype="multipart/form-data">
                 @csrf
 
-                {{-- Título --}}
                 <label class="font-semibold">Título</label>
                 <input type="text" name="title" value="{{ old('title') }}" class="w-full border px-3 py-2 rounded mt-1 mb-4" >
                 @error('title')
                     <p class="text-red-600 text-sm mb-3">{{ $message }}</p>
                 @enderror
 
-                {{-- Conteúdo --}}
                 <label class="font-semibold">Conteúdo</label>
                 <textarea name="content"  rows="6" class="w-full border px-3 py-2 rounded mt-1 mb-4" >
                     {{ old('content') }}
@@ -38,7 +36,6 @@
                     <p class="text-red-600 text-sm mb-3">{{ $message }}</p>
                 @enderror
 
-                {{-- Desenvolvedores --}}
                 <label class="font-semibold">Desenvolvedores</label>
                 @foreach ($developers as $dev)
                     <label class="flex items-center gap-2">

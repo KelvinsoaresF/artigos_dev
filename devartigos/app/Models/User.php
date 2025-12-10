@@ -44,7 +44,6 @@ class User extends Authenticatable
 
     protected $casts = [
         'skills' => 'array',
-        'published_at' => 'date',
     ];
 
     /**
@@ -60,10 +59,14 @@ class User extends Authenticatable
         ];
     }
 
-
     public function articles()
     {
         return $this->belongsToMany(Article::class, 'article_user', 'user_id', 'article_id');
+    }
+
+    public function createdArticles()
+    {
+        return $this->hasMany(Article::class, 'owner_id');
     }
 
     // garante que todos os artigos criados pelo usuário sejam deletados ao deletar o usuário, evitando dados "orfãos"
