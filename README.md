@@ -19,7 +19,23 @@ E-mail (único)
 
 Senioridade: Jr, Pl, Sr
 
-Skills (tags)
+Skills 
+
+Cep
+
+Bairro
+
+Rua
+
+Numero 
+
+Complemento
+
+Cidade
+
+Estado
+
+Utilizando ViaCEP, uma API publica integrada ao sistema para buscar o endereço através do CEP
 
 Busca e filtros por:
 
@@ -27,17 +43,7 @@ Nome
 
 Senioridade
 
-Cep
-
-Endereço
-
-Numero 
-
-Cidade
-
-Estado
-
-Utilizando ViaCEP, uma API publica para buscar o endereço através do CEP
+Skill
 
 Badge exibindo quantidade de artigos associados e criados
 
