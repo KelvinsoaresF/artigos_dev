@@ -58,19 +58,19 @@ class ProfileController extends Controller
                 'state' => 'nullable|string',
             ],
             [
-                // 'name.required' => 'O campo nome é obrigatório.',
+                'name.required' => 'O campo nome é obrigatório.',
                 'name.string' => 'O campo nome deve ser uma string.',
                 'name.min' => 'O nome deve ter no mínimo 3 caracteres.',
 
-                // 'email.required' => 'O campo email é obrigatório.',
+                'email.required' => 'O campo email é obrigatório.',
                 'email.string' => 'O campo email deve ser uma string.',
                 'email.email' => 'O campo email deve ser um email válido.',
 
-                // 'seniority.required' => 'O campo senioridade é obrigatório.',
+                'seniority.required' => 'O campo senioridade é obrigatório.',
                 'seniority.string' => 'O campo senioridade deve ser uma string.',
                 'seniority.in' => 'O campo senioridade deve ser Jr, Pl ou Sr.',
 
-                // 'skills.string' => 'O campo skills deve ser uma string.',
+                'skills.string' => 'O campo skills deve ser uma string.',
 
                 'cep.string' => 'O campo CEP deve ser uma string.',
                 'street.string' => 'O campo rua deve ser uma string.',

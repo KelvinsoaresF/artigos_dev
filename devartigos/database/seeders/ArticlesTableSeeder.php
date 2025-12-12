@@ -21,7 +21,7 @@ class ArticlesTableSeeder extends Seeder
                 'title' => 'Introdução ao Laravel',
                 'slug' => Str::slug('Introdução ao Laravel'),
                 'content' => 'Conteúdo do artigo sobre Laravel.',
-                'published_at' => Carbon::now(),
+
                 'cover_image' => null,
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
@@ -31,7 +31,7 @@ class ArticlesTableSeeder extends Seeder
                 'title' => 'Guia de Vue.js para Iniciantes',
                 'slug' => Str::slug('Guia de Vue.js para Iniciantes'),
                 'content' => 'Um guia simples sobre Vue.js.',
-                'published_at' => Carbon::now(),
+
                 'cover_image' => null,
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
@@ -41,7 +41,7 @@ class ArticlesTableSeeder extends Seeder
                 'title' => 'Técnicas Avançadas de Docker',
                 'slug' => Str::slug('Técnicas Avançadas de Docker'),
                 'content' => 'Aprenda a usar Docker como um profissional.',
-                'published_at' => null,
+
                 'cover_image' => null,
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
