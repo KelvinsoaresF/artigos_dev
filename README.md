@@ -25,9 +25,19 @@ Busca e filtros por:
 
 Nome
 
-Skill
-
 Senioridade
+
+Cep
+
+Endereço
+
+Numero 
+
+Cidade
+
+Estado
+
+Utilizando ViaCEP, uma API publica para buscar o endereço através do CEP
 
 Badge exibindo quantidade de artigos associados e criados
 
@@ -39,7 +49,7 @@ Título
 
 Slug
 
-Conteúdo (HTML)
+Conteúdo
 
 Data de publicação
 
@@ -63,7 +73,7 @@ Laravel 10+
 
 PHP 8.1+
 
-MySQL ou PostgreSQL
+MySQL
 
 Tailwind CSS
 
