@@ -63,8 +63,6 @@ Imagem de capa (opcional)
 
 Associar múltiplos desenvolvedores ao criar/editar
 
-Badge exibindo número de desenvolvedores vinculados
-
 💻📱 Interface Responsiva
 
 Desktop: Grid em cards
